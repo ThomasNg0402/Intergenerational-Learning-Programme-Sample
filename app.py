@@ -1,3 +1,15 @@
+import streamlit as st
+from streamlit import components
+
+# Page configuration
+st.set_page_config(
+    page_title="ILP Workshop Registration",
+    page_icon="🎓",
+    layout="wide"
+)
+
+# HTML content
+html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,7 +264,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 14px;
-            color: #999;
+            color: #333;
         }
 
         .form-input:focus {
@@ -322,6 +334,39 @@
 
         .back-button:hover {
             background: #555;
+        }
+
+        .participant-list {
+            width: 100%;
+        }
+
+        .participant-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .participant-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .participant-email {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .wheelchair-badge {
+            display: inline-block;
+            background: #e8d9ff;
+            color: #7c3aed;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -436,12 +481,12 @@
                 <form id="registrationForm">
                     <div class="form-group">
                         <label class="form-label">Full Name</label>
-                        <input type="text" class="form-input" placeholder="Enter participant name" required>
+                        <input type="text" class="form-input" id="participantName" placeholder="Enter participant name" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-input" placeholder="Enter phone number" required>
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="participantEmail" placeholder="Enter email address" required>
                     </div>
 
                     <div class="checkbox-group">
@@ -461,7 +506,7 @@
                     <h2 class="section-title">Participants</h2>
                 </div>
 
-                <div class="empty-state">
+                <div id="participantsList" class="empty-state">
                     <div class="empty-icon">👥</div>
                     <p>No participants registered yet</p>
                 </div>
@@ -470,6 +515,8 @@
     </div>
 
     <script>
+        let participants = [];
+
         function showDetails() {
             document.getElementById('detailsSection').style.display = 'block';
             window.scrollTo({ top: document.getElementById('detailsSection').offsetTop - 20, behavior: 'smooth' });
@@ -487,10 +534,58 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function updateParticipantsList() {
+            const listContainer = document.getElementById('participantsList');
+            
+            if (participants.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">👥</div>
+                        <p>No participants registered yet</p>
+                    </div>
+                `;
+            } else {
+                let html = '<div class="participant-list">';
+                participants.forEach((p, index) => {
+                    html += `
+                        <div class="participant-item">
+                            <div class="participant-name">${p.name}</div>
+                            <div class="participant-email">${p.email}</div>
+                            ${p.wheelchair ? '<div class="wheelchair-badge">♿ Wheelchair Required</div>' : ''}
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                listContainer.innerHTML = html;
+            }
+        }
+
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Registration submitted successfully!');
+            
+            const name = document.getElementById('participantName').value;
+            const email = document.getElementById('participantEmail').value;
+            const wheelchair = document.getElementById('wheelchair').checked;
+            
+            participants.push({
+                name: name,
+                email: email,
+                wheelchair: wheelchair
+            });
+            
+            updateParticipantsList();
+            
+            // Clear form
+            document.getElementById('participantName').value = '';
+            document.getElementById('participantEmail').value = '';
+            document.getElementById('wheelchair').checked = false;
+            
+            alert('Participant registered successfully!');
         });
     </script>
 </body>
 </html>
+"""
+
+# Render the HTML
+components.v1.html(html_content, height=800, scrolling=True)
