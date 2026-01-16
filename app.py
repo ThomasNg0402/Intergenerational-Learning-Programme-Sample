@@ -485,8 +485,8 @@ html_content = """
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" class="form-input" id="participantEmail" placeholder="Enter email address" required>
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="participantPhone" placeholder="Enter phone number" required>
                     </div>
 
                     <div class="checkbox-group">
@@ -550,7 +550,7 @@ html_content = """
                     html += `
                         <div class="participant-item">
                             <div class="participant-name">${p.name}</div>
-                            <div class="participant-email">${p.email}</div>
+                            <div class="participant-phone">${p.phone}</div>
                             ${p.wheelchair ? '<div class="wheelchair-badge">♿ Wheelchair Required</div>' : ''}
                         </div>
                     `;
@@ -564,12 +564,12 @@ html_content = """
             e.preventDefault();
             
             const name = document.getElementById('participantName').value;
-            const email = document.getElementById('participantEmail').value;
+            const phone = document.getElementById('participantPhone').value;
             const wheelchair = document.getElementById('wheelchair').checked;
             
             participants.push({
                 name: name,
-                email: email,
+                phone: phone,
                 wheelchair: wheelchair
             });
             
@@ -577,7 +577,7 @@ html_content = """
             
             // Clear form
             document.getElementById('participantName').value = '';
-            document.getElementById('participantEmail').value = '';
+            document.getElementById('participantPhone').value = '';
             document.getElementById('wheelchair').checked = false;
             
             alert('Participant registered successfully!');
