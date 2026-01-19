@@ -1,5 +1,7 @@
 import streamlit as st
 from streamlit import components
+import base64
+import os
 
 # Page configuration
 st.set_page_config(
@@ -8,8 +10,21 @@ st.set_page_config(
     layout="wide"
 )
 
+# Function to encode images to base64
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except:
+        return None
+
+# Load images
+rainbow_keychain = get_base64_image("img/rainbow_keychain.png")
+origami_cats = get_base64_image("img/origami_cats.png")
+printer_3d = get_base64_image("img/3d_printer.jpg")
+
 # HTML content
-html_content = """
+html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,63 +32,63 @@ html_content = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ILP Workshop Registration</title>
     <style>
-        * {
+        * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        }}
 
-        body {
+        body {{
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-        }
+        }}
 
-        .page {
+        .page {{
             display: none;
-        }
+        }}
 
-        .page.active {
+        .page.active {{
             display: block;
-        }
+        }}
 
         /* Header */
-        header {
+        header {{
             background: white;
             padding: 20px;
             border-bottom: 2px solid #e0e0e0;
-        }
+        }}
 
-        .header-content {
+        .header-content {{
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             gap: 20px;
-        }
+        }}
 
-        .search-box {
+        .search-box {{
             border: 2px solid #8b2332;
             padding: 10px 15px;
             border-radius: 5px;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
+        }}
 
-        .search-box input {
+        .search-box input {{
             border: none;
             outline: none;
             color: #8b2332;
             font-size: 14px;
-        }
+        }}
 
-        .logo {
+        .logo {{
             display: flex;
             align-items: center;
             gap: 10px;
-        }
+        }}
 
-        .logo-circle {
+        .logo-circle {{
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -83,112 +98,112 @@ html_content = """
             justify-content: center;
             color: #8b2332;
             font-weight: bold;
-        }
+        }}
 
-        .logo-text {
+        .logo-text {{
             color: #333;
             font-size: 16px;
-        }
+        }}
 
         /* Course Listing */
-        .course-grid {
+        .course-grid {{
             max-width: 1200px;
             margin: 40px auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 0 20px;
-        }
+        }}
 
-        .course-card {
+        .course-card {{
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: transform 0.2s;
-        }
+        }}
 
-        .course-card:hover {
+        .course-card:hover {{
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+        }}
 
-        .course-image {
+        .course-image {{
             width: 100%;
             height: 200px;
             object-fit: cover;
-        }
+        }}
 
-        .course-info {
+        .course-info {{
             padding: 20px;
-        }
+        }}
 
-        .course-title {
+        .course-title {{
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
-        }
+        }}
 
-        .course-provider {
+        .course-provider {{
             font-style: italic;
             color: #666;
             margin-bottom: 10px;
-        }
+        }}
 
-        .stars {
+        .stars {{
             color: #ffd700;
-        }
+        }}
 
         /* Course Details */
-        .course-details {
+        .course-details {{
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
-        }
+        }}
 
-        .description-box {
+        .description-box {{
             background: white;
             padding: 30px;
             border-radius: 8px;
             margin-bottom: 30px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        }}
 
-        .details-box {
+        .details-box {{
             background: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        }}
 
-        .details-box h2 {
+        .details-box h2 {{
             margin-bottom: 20px;
             color: #333;
-        }
+        }}
 
-        .detail-row {
+        .detail-row {{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #e0e0e0;
-        }
+        }}
 
-        .detail-item {
+        .detail-item {{
             display: flex;
             align-items: center;
             gap: 10px;
-        }
+        }}
 
-        .detail-label {
+        .detail-label {{
             font-weight: bold;
             color: #333;
-        }
+        }}
 
-        .cta-button {
+        .cta-button {{
             background: #8b2332;
             color: white;
             border: none;
@@ -199,37 +214,37 @@ html_content = """
             display: block;
             margin: 30px auto;
             transition: background 0.3s;
-        }
+        }}
 
-        .cta-button:hover {
+        .cta-button:hover {{
             background: #6d1b27;
-        }
+        }}
 
         /* Registration Form */
-        .registration-container {
+        .registration-container {{
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-        }
+        }}
 
-        .form-section {
+        .form-section {{
             background: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        }}
 
-        .section-header {
+        .section-header {{
             display: flex;
             align-items: center;
             gap: 15px;
             margin-bottom: 25px;
-        }
+        }}
 
-        .icon-circle {
+        .icon-circle {{
             width: 50px;
             height: 50px;
             background: #e8d9ff;
@@ -239,53 +254,53 @@ html_content = """
             justify-content: center;
             color: #7c3aed;
             font-size: 24px;
-        }
+        }}
 
-        .section-title {
+        .section-title {{
             font-size: 20px;
             font-weight: bold;
             color: #333;
-        }
+        }}
 
-        .form-group {
+        .form-group {{
             margin-bottom: 20px;
-        }
+        }}
 
-        .form-label {
+        .form-label {{
             display: block;
             margin-bottom: 8px;
             color: #333;
             font-weight: 500;
-        }
+        }}
 
-        .form-input {
+        .form-input {{
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 14px;
             color: #333;
-        }
+        }}
 
-        .form-input:focus {
+        .form-input:focus {{
             outline: none;
             border-color: #7c3aed;
-        }
+        }}
 
-        .checkbox-group {
+        .checkbox-group {{
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 15px;
-        }
+        }}
 
-        .checkbox-group input[type="checkbox"] {
+        .checkbox-group input[type="checkbox"] {{
             width: 20px;
             height: 20px;
             cursor: pointer;
-        }
+        }}
 
-        .submit-button {
+        .submit-button {{
             width: 100%;
             background: #7c3aed;
             color: white;
@@ -297,32 +312,32 @@ html_content = """
             cursor: pointer;
             margin-top: 10px;
             transition: background 0.3s;
-        }
+        }}
 
-        .submit-button:hover {
+        .submit-button:hover {{
             background: #6d28d9;
-        }
+        }}
 
-        .participants-section {
+        .participants-section {{
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 300px;
-        }
+        }}
 
-        .empty-state {
+        .empty-state {{
             text-align: center;
             color: #999;
-        }
+        }}
 
-        .empty-icon {
+        .empty-icon {{
             font-size: 60px;
             color: #ddd;
             margin-bottom: 20px;
-        }
+        }}
 
-        .back-button {
+        .back-button {{
             background: #666;
             color: white;
             border: none;
@@ -330,36 +345,36 @@ html_content = """
             border-radius: 5px;
             cursor: pointer;
             margin: 20px;
-        }
+        }}
 
-        .back-button:hover {
+        .back-button:hover {{
             background: #555;
-        }
+        }}
 
-        .participant-list {
+        .participant-list {{
             width: 100%;
-        }
+        }}
 
-        .participant-item {
+        .participant-item {{
             background: #f9f9f9;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
             border-left: 4px solid #7c3aed;
-        }
+        }}
 
-        .participant-name {
+        .participant-name {{
             font-weight: bold;
             color: #333;
             margin-bottom: 5px;
-        }
+        }}
 
-        .participant-email {
+        .participant-email {{
             color: #666;
             font-size: 14px;
-        }
+        }}
 
-        .wheelchair-badge {
+        .wheelchair-badge {{
             display: inline-block;
             background: #e8d9ff;
             color: #7c3aed;
@@ -367,7 +382,7 @@ html_content = """
             border-radius: 12px;
             font-size: 12px;
             margin-top: 5px;
-        }
+        }}
     </style>
 </head>
 <body>
@@ -388,7 +403,7 @@ html_content = """
 
         <div class="course-grid">
             <div class="course-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23ddd' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3ERainbow Keychain%3C/text%3E%3C/svg%3E" alt="Braided Bliss Workshop" class="course-image">
+                <img src="data:image/png;base64,{rainbow_keychain}" alt="Braided Bliss Workshop" class="course-image">
                 <div class="course-info">
                     <div class="course-title">Braided Bliss: T-Shirt Keychain Workshop</div>
                     <div class="course-provider">Family Central</div>
@@ -397,7 +412,7 @@ html_content = """
             </div>
 
             <div class="course-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23ffeb3b' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23333'%3EOrigami Cats%3C/text%3E%3C/svg%3E" alt="Napkin Origami" class="course-image">
+                <img src="data:image/png;base64,{origami_cats}" alt="Napkin Origami" class="course-image">
                 <div class="course-info">
                     <div class="course-title">Napkin Origami Folding</div>
                     <div class="course-provider">Family Central</div>
@@ -406,7 +421,7 @@ html_content = """
             </div>
 
             <div class="course-card" onclick="showDetails()">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23546e7a' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='%23fff'%3E3D Printer%3C/text%3E%3C/svg%3E" alt="3D Printing" class="course-image">
+                <img src="data:image/jpeg;base64,{printer_3d}" alt="3D Printing" class="course-image">
                 <div class="course-info">
                     <div class="course-title">智能设计 - 3D 打印和建模 3D Printing & Modelling</div>
                     <div class="course-provider">En Community Services Society (ECSS)</div>
@@ -485,8 +500,8 @@ html_content = """
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-input" id="participantPhone" placeholder="Enter phone number" required>
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="participantEmail" placeholder="Enter email address" required>
                     </div>
 
                     <div class="checkbox-group">
@@ -517,75 +532,75 @@ html_content = """
     <script>
         let participants = [];
 
-        function showDetails() {
+        function showDetails() {{
             document.getElementById('detailsSection').style.display = 'block';
-            window.scrollTo({ top: document.getElementById('detailsSection').offsetTop - 20, behavior: 'smooth' });
-        }
+            window.scrollTo({{ top: document.getElementById('detailsSection').offsetTop - 20, behavior: 'smooth' }});
+        }}
 
-        function showRegistration() {
+        function showRegistration() {{
             document.getElementById('coursePage').classList.remove('active');
             document.getElementById('registrationPage').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
 
-        function showCourse() {
+        function showCourse() {{
             document.getElementById('registrationPage').classList.remove('active');
             document.getElementById('coursePage').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
 
-        function updateParticipantsList() {
+        function updateParticipantsList() {{
             const listContainer = document.getElementById('participantsList');
             
-            if (participants.length === 0) {
+            if (participants.length === 0) {{
                 listContainer.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">👥</div>
                         <p>No participants registered yet</p>
                     </div>
                 `;
-            } else {
+            }} else {{
                 let html = '<div class="participant-list">';
-                participants.forEach((p, index) => {
+                participants.forEach((p, index) => {{
                     html += `
                         <div class="participant-item">
-                            <div class="participant-name">${p.name}</div>
-                            <div class="participant-phone">${p.phone}</div>
-                            ${p.wheelchair ? '<div class="wheelchair-badge">♿ Wheelchair Required</div>' : ''}
+                            <div class="participant-name">${{p.name}}</div>
+                            <div class="participant-email">${{p.email}}</div>
+                            ${{p.wheelchair ? '<div class="wheelchair-badge">♿ Wheelchair Required</div>' : ''}}
                         </div>
                     `;
-                });
+                }});
                 html += '</div>';
                 listContainer.innerHTML = html;
-            }
-        }
+            }}
+        }}
 
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {{
             e.preventDefault();
             
             const name = document.getElementById('participantName').value;
-            const phone = document.getElementById('participantPhone').value;
+            const email = document.getElementById('participantEmail').value;
             const wheelchair = document.getElementById('wheelchair').checked;
             
-            participants.push({
+            participants.push({{
                 name: name,
-                phone: phone,
+                email: email,
                 wheelchair: wheelchair
-            });
+            }});
             
             updateParticipantsList();
             
             // Clear form
             document.getElementById('participantName').value = '';
-            document.getElementById('participantPhone').value = '';
+            document.getElementById('participantEmail').value = '';
             document.getElementById('wheelchair').checked = false;
             
             alert('Participant registered successfully!');
-        });
+        }});
     </script>
 </body>
 </html>
 """
 
 # Render the HTML
-components.v1.html(html_content, height=800, scrolling=True)
+components.v1.html(html_content, height=800, scrolling=True)    
