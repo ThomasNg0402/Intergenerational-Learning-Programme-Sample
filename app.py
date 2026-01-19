@@ -403,28 +403,28 @@ html_content = f"""
 
         <div class="course-grid">
             <div class="course-card">
-                <img src="data:image/png;base64,{rainbow_keychain}" alt="Braided Bliss Workshop" class="course-image">
+                <img src="data:image/png;base64,{rainbow_keychain}" alt="Game Night for Seniors!" class="course-image">
                 <div class="course-info">
-                    <div class="course-title">Braided Bliss: T-Shirt Keychain Workshop</div>
-                    <div class="course-provider">Family Central</div>
-                    <div class="stars">☆☆☆☆☆</div>
+                    <div class="course-title">Game Night for Seniors!</div>
+                    <div class="course-provider">NHG Health</div>
+                    <div class="stars">☆☆☆☆</div>
                 </div>
             </div>
 
             <div class="course-card">
-                <img src="data:image/png;base64,{origami_cats}" alt="Napkin Origami" class="course-image">
+                <img src="data:image/png;base64,{origami_cats}" alt="Fun Art Activities For Seniors" class="course-image">
                 <div class="course-info">
-                    <div class="course-title">Napkin Origami Folding</div>
-                    <div class="course-provider">Family Central</div>
-                    <div class="stars">☆☆☆☆☆</div>
+                    <div class="course-title">Fun Art Activities For Seniors</div>
+                    <div class="course-provider">NHG Health</div>
+                    <div class="stars">☆☆☆</div>
                 </div>
             </div>
 
             <div class="course-card" onclick="showDetails()">
-                <img src="data:image/jpeg;base64,{printer_3d}" alt="3D Printing" class="course-image">
+                <img src="data:image/jpeg;base64,{printer_3d}" alt="Christmas Cheer" class="course-image">
                 <div class="course-info">
-                    <div class="course-title">智能设计 - 3D 打印和建模 3D Printing & Modelling</div>
-                    <div class="course-provider">En Community Services Society (ECSS)</div>
+                    <div class="course-title">Christmas Cheer</div>
+                    <div class="course-provider">NHG Health</div>
                     <div class="stars">☆☆☆☆☆</div>
                 </div>
             </div>
@@ -433,7 +433,8 @@ html_content = f"""
         <div id="detailsSection" style="display: none;">
             <div class="course-details">
                 <div class="description-box">
-                    <p>In partnership with students from West Spring Primary School, you will learn to make braided keychains from old T-shirts. Suited for interested beginners, you will gain hands-on experience turning old T-shirts into works of art, in the form of vibrant and braided keychains, personalised to your own liking. By the end of the session, you will be able to make your very own creative keychains, made from old and recycled T-shirts. You will also be able to share your creations with friends and family!</p>
+                    <p>Join us in partnership with West Spring Primary School students to craft colorful braided keychains from upcycled T-shirt scraps! Transform old fabrics into vibrant, personalized bracelets perfect for your keys or as fun gifts. Get creative, share your unique designs, and take home handmade treasures by the end of this delightful session. It's a wonderful way to connect, recycle, and spark joy with friends!
+​</p>
                 </div>
 
                 <div class="details-box">
@@ -446,7 +447,7 @@ html_content = f"""
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">⏰ Duration</span>
-                            <span>3 hours over 1 session</span>
+                            <span>3 hours per session</span>
                         </div>
                     </div>
 
@@ -457,7 +458,7 @@ html_content = f"""
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">📞 Contact</span>
-                            <span>9685 4812</span>
+                            <span>6005-6412</span>
                         </div>
                     </div>
 
