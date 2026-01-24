@@ -476,7 +476,7 @@ html_content = f"""
                     <p style="text-align: center; font-style: italic; margin: 30px 0;">Kindly head over to course site for exact details</p>
 
                     <button class="cta-button" onclick="showRegistration()">
-                        Click Here to Course Provider's Website
+                        Click Here to Register!
                     </button>
                 </div>
             </div>
